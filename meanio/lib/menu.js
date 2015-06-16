@@ -17,12 +17,14 @@ function remove_nulls(v) {
 //MenuItem class
 function MenuItem(options) {
     options = _.assign({
+        id: null,
         name: null,
         title: null,
         link: null,
         roles: null
     }, options);
     options.name = options.name || (options.link ? options.link.replace('/', '_') : undefined) || options.title;
+    this.id = options.id;
     this.name = options.name;
     this.title = options.title;
     this.link = options.link;
@@ -38,6 +40,7 @@ function mapDoStrip(v) {
 
 MenuItem.prototype.strip = function() {
     return {
+        id: this.id,
         name: this.name,
         title: this.title,
         link: this.link,
@@ -55,6 +58,7 @@ MenuItem.hasRole = function(role, roles) {
 
 MenuItem.prototype.props = function() {
     return {
+        id: this.id,
         name: this.name,
         title: this.title,
         link: this.link,
@@ -105,6 +109,7 @@ MenuItem.prototype.get = function(roles, userGroups, path) {
     }
 
     return new MenuItem({
+        id: this.id || null,
         roles: this.roles || null,
         userGroups: this.userGroups || null,
         link: this.link || null,
