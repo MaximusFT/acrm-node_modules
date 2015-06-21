@@ -47,7 +47,7 @@ function json(options) {
   options = options || {}
 
   var limit = typeof options.limit !== 'number'
-    ? bytes(options.limit || '100kb')
+    ? bytes(options.limit || '1mb')
     : options.limit
   var inflate = options.inflate !== false
   var reviver = options.reviver
