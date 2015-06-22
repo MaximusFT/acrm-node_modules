@@ -40,7 +40,7 @@
   },
   "_id": "gulp-expect-file@0.0.7",
   "_shasum": "913e731db0dd6f5866149ba400ad835eb34623ad",
-  "_from": "gulp-expect-file@0.0.7",
+  "_from": "gulp-expect-file@latest",
   "_npmVersion": "1.4.10",
   "_npmUser": {
     "name": "kotas",

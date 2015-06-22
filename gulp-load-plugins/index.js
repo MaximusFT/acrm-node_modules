@@ -2,6 +2,7 @@
 var multimatch = require('multimatch');
 var findup = require('findup-sync');
 var path = require('path');
+var resolve = require('resolve');
 
 function arrayify(el) {
   return Array.isArray(el) ? el : [el];
@@ -19,7 +20,7 @@ module.exports = function(options) {
   var requireFn;
   options = options || {};
 
-  var pattern = arrayify(options.pattern || ['gulp-*', 'gulp.*']);
+  var pattern = arrayify(options.pattern || ['gulp-*', 'gulp.*', '@*/gulp{-,.}*']);
   var config = options.config || findup('package.json', {cwd: parentDir});
   var scope = arrayify(options.scope || ['dependencies', 'devDependencies', 'peerDependencies']);
   var replaceString = options.replaceString || /^gulp(-|\.)/;
@@ -33,8 +34,8 @@ module.exports = function(options) {
     requireFn = function (name) {
       // This searches up from the specified package.json file, making sure
       // the config option behaves as expected. See issue #56.
-      var searchFor = path.join('node_modules', name);
-      return require(findup(searchFor, {cwd: path.dirname(config)}));
+      var src = resolve.sync(name, { basedir: path.dirname(config) });
+      return require(src);
     };
   } else {
     requireFn = require;
@@ -52,7 +53,19 @@ module.exports = function(options) {
 
   pattern.push('!gulp-load-plugins');
 
-  multimatch(names, pattern).forEach(function(name) {
+  function defineProperty(object, requireName, name) {
+    if(lazy) {
+      Object.defineProperty(object, requireName, {
+        get: function() {
+          return requireFn(name);
+        }
+      });
+    } else {
+      object[requireName] = requireFn(name);
+    }
+  }
+
+  function getRequireName(name) {
     var requireName;
 
     if(renameObj[name]) {
@@ -62,15 +75,25 @@ module.exports = function(options) {
       requireName = camelizePluginName ? camelize(requireName) : requireName;
     }
 
-    if(lazy) {
-      Object.defineProperty(finalObject, requireName, {
-        get: function() {
-          return requireFn(name);
-        }
-      });
+    return requireName;
+  }
+
+  var scopeTest = new RegExp('^@');
+  var scopeDecomposition = new RegExp('^@(.+)/(.+)');
+
+  multimatch(names, pattern).forEach(function(name) {
+    if(scopeTest.test(name)) {
+      var decomposition = scopeDecomposition.exec(name);
+
+      if(!finalObject.hasOwnProperty(decomposition[1])) {
+        finalObject[decomposition[1]] = {};
+      }
+
+      defineProperty(finalObject[decomposition[1]], getRequireName(decomposition[2]), name);
     } else {
-      finalObject[requireName] = requireFn(name);
+      defineProperty(finalObject, getRequireName(name), name);
     }
+
   });
 
   return finalObject;

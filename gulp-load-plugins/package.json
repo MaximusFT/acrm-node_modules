@@ -1,16 +1,16 @@
 {
   "name": "gulp-load-plugins",
-  "version": "0.8.1",
+  "version": "1.0.0-rc.1",
   "description": "Automatically load any gulp plugins in your package.json",
   "scripts": {
-    "test": "mocha"
+    "test": "NODE_PATH=test/global_modules mocha"
   },
   "files": [
     "index.js"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/jackfranklin/gulp-load-plugins"
+    "url": "git+https://github.com/jackfranklin/gulp-load-plugins.git"
   },
   "keywords": [
     "gulpfriendly",
@@ -44,12 +44,22 @@
     },
     {
       "name": "Callum Macrae"
+    },
+    {
+      "name": "Hutson Betts"
+    },
+    {
+      "name": "Christian Maniewski"
+    },
+    {
+      "name": "Connor Peet"
     }
   ],
   "license": "MIT",
   "dependencies": {
     "findup-sync": "^0.2.1",
-    "multimatch": "2.0.0"
+    "multimatch": "2.0.0",
+    "resolve": "^1.1.6"
   },
   "devDependencies": {
     "jshint": "^2.5.1",
@@ -57,19 +67,23 @@
     "proxyquire": "^1.0.1",
     "sinon": "^1.9.1"
   },
-  "gitHead": "f839d0da4c0a01b2ccb574b70d70d93f92335188",
+  "gitHead": "22fb861f31bb5031b4e1e0ff992bcd77edfe6c3e",
   "bugs": {
     "url": "https://github.com/jackfranklin/gulp-load-plugins/issues"
   },
   "homepage": "https://github.com/jackfranklin/gulp-load-plugins",
-  "_id": "gulp-load-plugins@0.8.1",
-  "_shasum": "0a8261d059dfddc918fda406c8232e72fa34d2ea",
-  "_from": "gulp-load-plugins@>=0.8.1 <0.9.0",
-  "_npmVersion": "2.6.0",
-  "_nodeVersion": "0.10.36",
+  "_id": "gulp-load-plugins@1.0.0-rc.1",
+  "_shasum": "078aa8f5a540ca4d973ec4f1633011c001ad0b27",
+  "_from": "gulp-load-plugins@latest",
+  "_npmVersion": "2.7.3",
+  "_nodeVersion": "0.10.37",
   "_npmUser": {
     "name": "jackfranklin",
     "email": "jack@jackfranklin.net"
+  },
+  "dist": {
+    "shasum": "078aa8f5a540ca4d973ec4f1633011c001ad0b27",
+    "tarball": "http://registry.npmjs.org/gulp-load-plugins/-/gulp-load-plugins-1.0.0-rc.1.tgz"
   },
   "maintainers": [
     {
@@ -77,10 +91,7 @@
       "email": "jack@jackfranklin.net"
     }
   ],
-  "dist": {
-    "shasum": "0a8261d059dfddc918fda406c8232e72fa34d2ea",
-    "tarball": "http://registry.npmjs.org/gulp-load-plugins/-/gulp-load-plugins-0.8.1.tgz"
-  },
   "directories": {},
-  "_resolved": "https://registry.npmjs.org/gulp-load-plugins/-/gulp-load-plugins-0.8.1.tgz"
+  "_resolved": "https://registry.npmjs.org/gulp-load-plugins/-/gulp-load-plugins-1.0.0-rc.1.tgz",
+  "readme": "ERROR: No README data found!"
 }

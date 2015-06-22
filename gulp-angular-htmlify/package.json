@@ -1,6 +1,6 @@
 {
   "name": "gulp-angular-htmlify",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Change your ng-attributes to data-ng-attributes for HTML5 validation",
   "repository": {
     "type": "git",
@@ -34,21 +34,21 @@
     "ng"
   ],
   "dependencies": {
-    "angular-html5": "^2.4.0",
+    "angular-html5": "^2.5.0",
     "gulp-util": "^3.0.4",
     "through2": "^0.6.5"
   },
   "devDependencies": {
     "mocha": "*"
   },
-  "gitHead": "db76455c64acd26708577676492effada044ed5d",
+  "gitHead": "42cc9e3e11c729e64b6c3384441a657db68c400c",
   "bugs": {
     "url": "https://github.com/pgilad/gulp-angular-htmlify/issues"
   },
   "homepage": "https://github.com/pgilad/gulp-angular-htmlify",
-  "_id": "gulp-angular-htmlify@2.2.0",
-  "_shasum": "46e38af6aa954d2e74cd0ee965ceab9c340f5299",
-  "_from": "gulp-angular-htmlify@>=2.1.1 <3.0.0",
+  "_id": "gulp-angular-htmlify@2.3.0",
+  "_shasum": "fa2b6dc7a34cf4f17b18d2eb3bc211dda97d98ae",
+  "_from": "gulp-angular-htmlify@latest",
   "_npmVersion": "2.7.5",
   "_nodeVersion": "0.12.2",
   "_npmUser": {
@@ -62,9 +62,9 @@
     }
   ],
   "dist": {
-    "shasum": "46e38af6aa954d2e74cd0ee965ceab9c340f5299",
-    "tarball": "http://registry.npmjs.org/gulp-angular-htmlify/-/gulp-angular-htmlify-2.2.0.tgz"
+    "shasum": "fa2b6dc7a34cf4f17b18d2eb3bc211dda97d98ae",
+    "tarball": "http://registry.npmjs.org/gulp-angular-htmlify/-/gulp-angular-htmlify-2.3.0.tgz"
   },
   "directories": {},
-  "_resolved": "https://registry.npmjs.org/gulp-angular-htmlify/-/gulp-angular-htmlify-2.2.0.tgz"
+  "_resolved": "https://registry.npmjs.org/gulp-angular-htmlify/-/gulp-angular-htmlify-2.3.0.tgz"
 }

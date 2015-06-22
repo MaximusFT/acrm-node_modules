@@ -53,7 +53,7 @@
   "homepage": "https://github.com/itaymesh/gulp-css-flip",
   "_id": "gulp-css-flip@0.4.0",
   "_shasum": "e1d5c0682cda87af504e1494ca3b8a782538f12e",
-  "_from": "gulp-css-flip@>=0.4.0 <0.5.0",
+  "_from": "gulp-css-flip@latest",
   "_npmVersion": "1.4.7",
   "_npmUser": {
     "name": "itaymesh",

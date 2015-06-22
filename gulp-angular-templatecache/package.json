@@ -50,7 +50,7 @@
   "homepage": "https://github.com/miickel/gulp-angular-templatecache",
   "_id": "gulp-angular-templatecache@1.6.0",
   "_shasum": "c7e31462e4ba324cff79300281d15327aa01b1f2",
-  "_from": "gulp-angular-templatecache@>=1.5.0 <2.0.0",
+  "_from": "gulp-angular-templatecache@latest",
   "_npmVersion": "2.3.0",
   "_nodeVersion": "0.10.36",
   "_npmUser": {

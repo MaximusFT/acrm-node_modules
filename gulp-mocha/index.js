@@ -3,9 +3,12 @@ var domain = require('domain');
 var gutil = require('gulp-util');
 var through = require('through');
 var Mocha = require('mocha');
+var plur = require('plur');
 
-module.exports = function (options) {
-	var mocha = new Mocha(options);
+module.exports = function (opts) {
+	opts = opts || {};
+
+	var mocha = new Mocha(opts);
 	var cache = {};
 
 	for (var key in require.cache) {
@@ -14,19 +17,21 @@ module.exports = function (options) {
 
 	function clearCache() {
 		for (var key in require.cache) {
-			if (!cache[key]) {
+			if (!cache[key] && !/\.node$/.test(key)) {
 				delete require.cache[key];
 			}
 		}
 	}
 
-	var hasTests = false;
+	if (opts.require && opts.require.length) {
+		opts.require.forEach(require);
+	}
+
 	return through(function (file) {
 		mocha.addFile(file.path);
-		hasTests = true;
 		this.queue(file);
 	}, function () {
-		var stream = this;
+		var self = this;
 		var d = domain.create();
 		var runner;
 
@@ -35,7 +40,10 @@ module.exports = function (options) {
 				runner.uncaught(err);
 			} else {
 				clearCache();
-				stream.emit('error', new gutil.PluginError('gulp-mocha', err, {stack: err.stack, showStack: true}));
+				self.emit('error', new gutil.PluginError('gulp-mocha', err, {
+					stack: err.stack,
+					showStack: true
+				}));
 			}
 		}
 
@@ -46,17 +54,12 @@ module.exports = function (options) {
 					clearCache();
 
 					if (errCount > 0) {
-						stream.emit('error', new gutil.PluginError('gulp-mocha', errCount + ' ' + (errCount === 1 ? 'test' : 'tests') + ' failed.', {
+						self.emit('error', new gutil.PluginError('gulp-mocha', errCount + ' ' + plur('test', errCount) + ' failed.', {
 							showStack: false
 						}));
-					} else if (!hasTests) {
-						stream.emit('end');
 					}
-				});
 
-				runner.on('end', function () {
-					clearCache();
-					stream.emit('end');
+					self.emit('end');
 				});
 			} catch (err) {
 				handleException(err);

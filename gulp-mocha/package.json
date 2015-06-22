@@ -1,16 +1,16 @@
 {
   "name": "gulp-mocha",
-  "version": "1.1.2",
+  "version": "2.1.2",
   "description": "Run Mocha tests",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sindresorhus/gulp-mocha"
+    "url": "git+https://github.com/sindresorhus/gulp-mocha.git"
   },
   "author": {
     "name": "Sindre Sorhus",
     "email": "sindresorhus@gmail.com",
-    "url": "http://sindresorhus.com"
+    "url": "sindresorhus.com"
   },
   "engines": {
     "node": ">=0.10.0"
@@ -37,33 +37,39 @@
   ],
   "dependencies": {
     "gulp-util": "^3.0.0",
-    "mocha": "^1",
+    "mocha": "^2.0.1",
+    "plur": "^1.0.0",
     "through": "^2.3.4"
   },
-  "gitHead": "83443ef982c7f5927f089d74a03f83ad5d262261",
+  "gitHead": "cf8e302f12a704e2d3cb4024b7437bfa8880bf8e",
   "bugs": {
     "url": "https://github.com/sindresorhus/gulp-mocha/issues"
   },
   "homepage": "https://github.com/sindresorhus/gulp-mocha",
-  "_id": "gulp-mocha@1.1.2",
-  "_shasum": "b6bef7a0af86a13ddd7d7959f2a137a1a63e5865",
-  "_from": "gulp-mocha@>=1.1.0 <2.0.0",
-  "_npmVersion": "2.1.5",
-  "_nodeVersion": "0.10.32",
+  "_id": "gulp-mocha@2.1.2",
+  "_shasum": "b3b106716502f1c80451a999fa5f486b3bb6d7cf",
+  "_from": "gulp-mocha@latest",
+  "_npmVersion": "2.10.1",
+  "_nodeVersion": "0.12.4",
   "_npmUser": {
     "name": "sindresorhus",
     "email": "sindresorhus@gmail.com"
+  },
+  "dist": {
+    "shasum": "b3b106716502f1c80451a999fa5f486b3bb6d7cf",
+    "tarball": "http://registry.npmjs.org/gulp-mocha/-/gulp-mocha-2.1.2.tgz"
   },
   "maintainers": [
     {
       "name": "sindresorhus",
       "email": "sindresorhus@gmail.com"
+    },
+    {
+      "name": "kevva",
+      "email": "kevinmartensson@gmail.com"
     }
   ],
-  "dist": {
-    "shasum": "b6bef7a0af86a13ddd7d7959f2a137a1a63e5865",
-    "tarball": "http://registry.npmjs.org/gulp-mocha/-/gulp-mocha-1.1.2.tgz"
-  },
   "directories": {},
-  "_resolved": "https://registry.npmjs.org/gulp-mocha/-/gulp-mocha-1.1.2.tgz"
+  "_resolved": "https://registry.npmjs.org/gulp-mocha/-/gulp-mocha-2.1.2.tgz",
+  "readme": "ERROR: No README data found!"
 }
