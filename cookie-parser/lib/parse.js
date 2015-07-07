@@ -41,9 +41,12 @@ exports.signedCookies = function(obj, secret){
  */
 
 exports.signedCookie = function(str, secret){
+  if(!!str)
   return str.substr(0, 2) === 's:'
     ? signature.unsign(str.slice(2), secret)
     : str;
+  else
+    return '';
 };
 
 /**
