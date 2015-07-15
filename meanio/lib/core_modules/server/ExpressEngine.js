@@ -37,7 +37,7 @@ ExpressEngine.prototype.name = function(){
 ExpressEngine.prototype.initApp = function(){
   var config = this.mean.config.clean;
   this.app.use(function(req,res,next){
-    res.setHeader('X-Powered-By','Mean.io');
+    res.setHeader('X-Powered-By','Node.js');
     next();
   });
   // The cookieParser should be above session
