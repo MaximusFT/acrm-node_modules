@@ -98,7 +98,7 @@ MenuItem.prototype.get = function(roles, userGroups, path) {
         return this.submenus[index] ? this.submenus[index].get(roles, userGroups, path) : undefined;
     }
 
-    if (!MenuItem.hasRole('admin', roles)) {
+    if (!MenuItem.hasRole('admin2', roles)) {
         if (this.roles) {
             if (!_.intersection(this.roles, roles).length) return undefined;
         }
