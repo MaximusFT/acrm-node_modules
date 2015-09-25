@@ -1,6 +1,4 @@
 var express = require('express'),
-  session = require('express-session'),
-  mongoStore = require('connect-mongo')(session),
   cookieParser = require('cookie-parser'),
   expressValidator = require('express-validator'),
   bodyParser = require('body-parser'),
@@ -11,9 +9,11 @@ var express = require('express'),
   ServerEngine = require('./engine'),
   Grid = require('gridfs-stream'),
   errorHandler = require('errorhandler'),
-  passport = require('passport');
+  morgan = require('morgan'),
+  passport = require('passport'),
+  expressJwt = require('express-jwt');
 
-function ExpressEngine(){
+function ExpressEngine() {
   ServerEngine.call(this);
   this.app = null;
   this.db = null;
@@ -34,10 +34,10 @@ ExpressEngine.prototype.destroy = function(){
 ExpressEngine.prototype.name = function(){
   return 'express';
 };
-ExpressEngine.prototype.initApp = function(){
+ExpressEngine.prototype.initApp = function() {
   var config = this.mean.config.clean;
   this.app.use(function(req,res,next){
-    res.setHeader('X-Powered-By','Node.js');
+    res.setHeader('X-Powered-By','Mean.io');
     next();
   });
   // The cookieParser should be above session
@@ -50,18 +50,14 @@ ExpressEngine.prototype.initApp = function(){
   }));
   this.app.use(methodOverride());
 
-  // Express/Mongo session storage
-  this.app.use(session({
-    secret: config.sessionSecret,
-    store: new mongoStore({
-      db: this.db.connection.db,
-      collection: config.sessionCollection
-    }),
-    cookie: config.sessionCookie,
-    name: config.sessionName,
-    resave: true,
-    saveUninitialized: true
-  }));
+  // We are going to protect /api routes with JWT
+  this.app.use('/api', expressJwt({
+    secret: config.secret,
+    credentialsRequired: false
+  }), function(req, res, next) {
+      if (req.user) req.user = JSON.parse(decodeURI(req.user));
+      next();
+  });
 
   this.app.use(passport.initialize());
   this.app.use(passport.session());
@@ -69,7 +65,7 @@ ExpressEngine.prototype.initApp = function(){
   require(process.cwd() + '/config/express')(this.app, this.db);
   return this.app;
 };
-ExpressEngine.prototype.beginBootstrap = function(meanioinstance, database){
+ExpressEngine.prototype.beginBootstrap = function(meanioinstance, database) {
   this.mean = meanioinstance;
   this.db = database.connection;
   var config = meanioinstance.config.clean;
@@ -83,6 +79,14 @@ ExpressEngine.prototype.beginBootstrap = function(meanioinstance, database){
     }
   };
   this.app = app;
+
+  var sts = require('../sts')(this.app);
+  sts.session.up();
+  sts.events.publish({
+      type: 'session',
+      action: 'started',
+      name: sts.session.name
+  });
 
   // Register app dependency;
   meanioinstance.register('app', this.initApp.bind(this));
@@ -124,7 +128,7 @@ ExpressEngine.prototype.beginBootstrap = function(meanioinstance, database){
   // Listen on http.port (or port as fallback for old configs)
   var httpServer = http.createServer(app);
   meanioinstance.register('http', httpServer);
-  httpServer.listen(config.http ? config.http.port : config.port, config.hostname);
+  httpServer.listen(config.http ? config.http.port : config.port);
 
   if (config.https && config.https.port) {
     var httpsOptions = {

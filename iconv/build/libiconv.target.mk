@@ -27,12 +27,14 @@ CFLAGS_C_Debug :=
 # Flags passed to only C++ files.
 CFLAGS_CC_Debug := \
 	-fno-rtti \
-	-fno-exceptions
+	-fno-exceptions \
+	-std=gnu++0x
 
 INCS_Debug := \
-	-I/home/tolylya/.node-gyp/0.12.5/src \
-	-I/home/tolylya/.node-gyp/0.12.5/deps/uv/include \
-	-I/home/tolylya/.node-gyp/0.12.5/deps/v8/include \
+	-I/home/nikita/.node-gyp/4.1.1/include/node \
+	-I/home/nikita/.node-gyp/4.1.1/src \
+	-I/home/nikita/.node-gyp/4.1.1/deps/uv/include \
+	-I/home/nikita/.node-gyp/4.1.1/deps/v8/include \
 	-I$(srcdir)/deps/libiconv/srclib \
 	-I$(srcdir)/support
 
@@ -53,8 +55,6 @@ CFLAGS_Release := \
 	-O3 \
 	-ffunction-sections \
 	-fdata-sections \
-	-fno-tree-vrp \
-	-fno-tree-sink \
 	-fno-omit-frame-pointer
 
 # Flags passed to only C files.
@@ -63,12 +63,14 @@ CFLAGS_C_Release :=
 # Flags passed to only C++ files.
 CFLAGS_CC_Release := \
 	-fno-rtti \
-	-fno-exceptions
+	-fno-exceptions \
+	-std=gnu++0x
 
 INCS_Release := \
-	-I/home/tolylya/.node-gyp/0.12.5/src \
-	-I/home/tolylya/.node-gyp/0.12.5/deps/uv/include \
-	-I/home/tolylya/.node-gyp/0.12.5/deps/v8/include \
+	-I/home/nikita/.node-gyp/4.1.1/include/node \
+	-I/home/nikita/.node-gyp/4.1.1/src \
+	-I/home/nikita/.node-gyp/4.1.1/deps/uv/include \
+	-I/home/nikita/.node-gyp/4.1.1/deps/v8/include \
 	-I$(srcdir)/deps/libiconv/srclib \
 	-I$(srcdir)/support
 

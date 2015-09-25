@@ -313,8 +313,8 @@ ifeq ($(strip $(foreach prefix,$(NO_LOAD),\
 endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
-cmd_regen_makefile = cd $(srcdir); /home/tolylya/.nvm/versions/node/v0.12.5/lib/node_modules/npm/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "--toplevel-dir=." -I/home/tolylya/projects/aCRM2/node_modules/iconv/build/config.gypi -I/home/tolylya/.nvm/versions/node/v0.12.5/lib/node_modules/npm/node_modules/node-gyp/addon.gypi -I/home/tolylya/.node-gyp/0.12.5/common.gypi "--depth=." "-Goutput_dir=." "--generator-output=build" "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/home/tolylya/.node-gyp/0.12.5" "-Dmodule_root_dir=/home/tolylya/projects/aCRM2/node_modules/iconv" binding.gyp
-Makefile: $(srcdir)/../../../../.node-gyp/0.12.5/common.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/../../../../.nvm/versions/node/v0.12.5/lib/node_modules/npm/node_modules/node-gyp/addon.gypi
+cmd_regen_makefile = cd $(srcdir); /home/nikita/.nvm/versions/node/v4.1.1/lib/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "--toplevel-dir=." -I/home/nikita/Документы/projects/aCRM2/node_modules/iconv/build/config.gypi -I/home/nikita/.nvm/versions/node/v4.1.1/lib/node_modules/node-gyp/addon.gypi -I/home/nikita/.node-gyp/4.1.1/include/node/common.gypi "--depth=." "-Goutput_dir=." "--generator-output=build" "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/home/nikita/.node-gyp/4.1.1" "-Dnode_gyp_dir=/home/nikita/.nvm/versions/node/v4.1.1/lib/node_modules/node-gyp" "-Dnode_lib_file=node.lib" "-Dmodule_root_dir=/home/nikita/Документы/projects/aCRM2/node_modules/iconv" binding.gyp
+Makefile: $(srcdir)/../../../../../.nvm/versions/node/v4.1.1/lib/node_modules/node-gyp/addon.gypi $(srcdir)/build/config.gypi $(srcdir)/binding.gyp $(srcdir)/../../../../../.node-gyp/4.1.1/include/node/common.gypi
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included
