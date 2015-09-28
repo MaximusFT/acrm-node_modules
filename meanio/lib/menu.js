@@ -99,14 +99,15 @@ MenuItem.prototype.get = function(roles, userGroups, path) {
     }
 
     if (!MenuItem.hasRole('admin2', roles)) {
-        if (this.roles) {
-            if (!_.intersection(this.roles, roles).length) return undefined;
+        if (this.roles || (this.userGroups && this.userGroups.length > 0)) {
+            if (!_.intersection(this.roles, roles).length && !_.intersection(this.userGroups, userGroups).length) return undefined;
         }
     }
 
-    if (this.userGroups && this.userGroups.length > 0) {
-        if (!_.intersection(this.userGroups, userGroups).length) return undefined;
-    }
+    // if (this.userGroups && this.userGroups.length > 0) {
+    //     console.log('bbb', userGroups);
+    //     if (!_.intersection(this.userGroups, userGroups).length) return undefined;
+    // }
 
     return new MenuItem({
         id: this.id || null,
