@@ -98,11 +98,13 @@ MenuItem.prototype.get = function(roles, userGroups, path) {
         return this.submenus[index] ? this.submenus[index].get(roles, userGroups, path) : undefined;
     }
 
-    if (!MenuItem.hasRole('admin2', roles)) {
-        if (this.roles && (this.userGroups && this.userGroups.length > 0)) {
-            if (!_.intersection(this.roles, roles).length || !_.intersection(this.userGroups, userGroups).length) return undefined;
-        }
+    // if (!MenuItem.hasRole('admin2', roles)) {
+    if (this.roles && (this.userGroups && this.userGroups.length > 0)) {
+        if (!_.intersection(this.roles, roles).length || !_.intersection(this.userGroups, userGroups).length) return undefined;
     }
+    // }    
+    if (this.roles && !this.userGroups)
+        if (!_.intersection(this.roles, roles).length) return undefined;
 
     // if (this.userGroups && this.userGroups.length > 0) {
     //     console.log('bbb', userGroups);
