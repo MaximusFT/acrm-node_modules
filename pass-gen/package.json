@@ -1,0 +1,64 @@
+{
+  "name": "pass-gen",
+  "version": "0.0.1",
+  "description": "An easy-to-use command-line password generator",
+  "main": "lib/passgen",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ahultgren/node-password-generator.git"
+  },
+  "keywords": [
+    "password",
+    "generator",
+    "command-line",
+    "terminal"
+  ],
+  "author": {
+    "name": "Andreas Hultgren",
+    "email": "me@andreashultgren.se",
+    "url": "http://andreashultgren.se"
+  },
+  "license": "MIT",
+  "preferGlobal": true,
+  "bin": {
+    "passgen": "bin/passgen"
+  },
+  "dependencies": {
+    "mersenne": "0.0.3",
+    "commander": "~2.0.0",
+    "inquirer": "~0.3.4"
+  },
+  "devDependencies": {
+    "chai": "~1.7.2",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.2"
+  },
+  "readme": "# node-password-generator (pass-gen)\n\n#### A customizable command-line/terminal password generator\n\n_It works programmatically in node and in the browser too!_\n\n\nGenerate human-readable<sup>1</sup> passwords quickly and easily and specify what set of characters you want to generate the password from. By default it uses the full Latin-1 charset (execept for some ambiguous characters such as space and iIl etc) to maximize entropy.\n\nIt's best understood by looking at the [examples](#examples).\n\n<sup>1</sup> Depends on how \"readable\" you consider AS$é§0 to be and if your font supports Latin-1 characters.\n\n\n## Examples\n\n**Default usage**\n```bash\n$ passgen\ncq@öÙ]ØúüÏ-7d3VÀï½:cíÅ¾m-B7Å.ò\n```\n\n**WIFI-friendly password**\n```bash\n$ passgen -wnl 10\nxy3zg6k12h\n```\n\n**PIN code**\n```bash\n$ passgen -nl 4\n0162\n```\n\n**Quick copy to clipboard**\n```bash\n$ passgen | pbcopy\n```\n\nSee the tests folder for more examples.\n\n\n## Installation\n\n`npm install pass-gen -g`\n\n\n## Usage\n\n### Command-line API\n\n```bash\n$ passgen -h\n\n  Usage: passgen [options]\n\n  Options:\n\n    -h, --help                   output usage information\n    -V, --version                output the version number\n    -n --numbers                 Use 0-9\n    -w --ascii                   Use a-z\n    -u --ASCII                   Use A-Z\n    -s --special                 Use special ASCII characters such as .,_:;@...\n    -W --latin                   Use Latin-1 chars such as åöäé...\n    -U --Latin                   Use uppercase Latin-1 chars such as ÅÖÄÉ...\n    -S --Special                 Use special Latin-1 chars such as £§±©...\n    -a --ambiguous               Exclude ambiguous characters such as [space]\"oO0...\n    -x --extra <custom charset>  Use a custom set\n    -l --length <integer>        Set number of characters, Default: 30\n    -i --interactive             Interactive mode\n```\n\n\n### Node API\n\n* `require('pass-gen')(options, [length])`\n    * options (Array|Object) What charsets to use\n        * numbers\n        * ascii\n        * ASCII\n        * special\n        * latin\n        * LATIN\n        * Special\n        * ambiguous\n        * extra\n        * length\n    * length (Int) Number of characters in password\n\nSee [command-line options](#command-line-api) for what these options do\n\n\n#### Node examples\n```javascript\nvar passgen = require('pass-gen');\n\n// Default\npassgen();\n\n// Using array\npassgen(['ascii', 'ASCII'], 10);\n\n// Using object\npassgen({\n  ascii: true,\n  ASCII: 1,\n  numbers: 'what you set here doesn\\'t matter',\n  extra: '@=/.', // but this does\n  length: 15 // and this\n});\n```\n\n_Note that an options object must be used if you want to specify a custom charset._\n\n\n### Browser usage\n\nCompile with browserify. See Node examples.\n\n\n## Contribution\n\nPlease create an issue if you find something broken or would like a new feature. Do so even if you want to fix it yourself, so I know. Work of and issue pull-request to the develop branch.\n\n\n## Tests\n\nRun `make test` to run tests. Any added or changed functionality must be tested.\n\n\n## License\n\nMIT\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/ahultgren/node-password-generator/issues"
+  },
+  "_id": "pass-gen@0.0.1",
+  "dist": {
+    "shasum": "4c3c4186e848f00a6d0047500de2ce80e598db24",
+    "tarball": "http://registry.npmjs.org/pass-gen/-/pass-gen-0.0.1.tgz"
+  },
+  "_from": "pass-gen@*",
+  "_npmVersion": "1.3.11",
+  "_npmUser": {
+    "name": "ahultgren",
+    "email": "me@andreashultgren.se"
+  },
+  "maintainers": [
+    {
+      "name": "ahultgren",
+      "email": "me@andreashultgren.se"
+    }
+  ],
+  "directories": {},
+  "_shasum": "4c3c4186e848f00a6d0047500de2ce80e598db24",
+  "_resolved": "https://registry.npmjs.org/pass-gen/-/pass-gen-0.0.1.tgz"
+}
