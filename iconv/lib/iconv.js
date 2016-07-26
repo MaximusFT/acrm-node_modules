@@ -47,7 +47,11 @@ function Iconv(fromEncoding, toEncoding)
 
   var conv = bindings.make(fixEncoding(fromEncoding),
                            fixEncoding(toEncoding));
-  if (conv === null) throw new Error('Conversion not supported.');
+  if (conv === null) {
+    throw new Error('Conversion from ' +
+                    fromEncoding + ' to ' +
+                    toEncoding + ' is not supported.');
+  }
 
   var convert_ = convert.bind({ conv_: conv });
   var context_ = { trailer: null };
@@ -88,6 +92,7 @@ util.inherits(Iconv, stream.Stream);
 
 function fixEncoding(encoding)
 {
+  if (/^windows-31j$/i.test(encoding)) return 'cp932';
   // Convert "utf8" to "utf-8".
   return /^utf[^-]/i.test(encoding) ? 'utf-' + encoding.substr(3) : encoding;
 }
@@ -95,6 +100,9 @@ function fixEncoding(encoding)
 function convert(input, context) {
   if (!(input instanceof Buffer) && input !== FLUSH) {
     throw new Error('Bad argument.');  // Not a buffer or a string.
+  }
+  if (context !== null && context.trailer !== null && input === FLUSH) {
+    throw errnoException('EINVAL', 'Incomplete character sequence.');
   }
   if (context !== null && context.trailer !== null) {
     // Prepend input buffer with trailer from last chunk.

@@ -6,6 +6,9 @@ DEFS_Debug := \
 	'-DNODE_GYP_MODULE_NAME=iconv' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
+	'-DICONV_CONST=const' \
+	'-DENABLE_EXTRA=1' \
+	'-DHAVE_WORKING_O_NOFOLLOW=1' \
 	'-DBUILDING_NODE_EXTENSION' \
 	'-DDEBUG' \
 	'-D_DEBUG'
@@ -14,15 +17,8 @@ DEFS_Debug := \
 CFLAGS_Debug := \
 	-fPIC \
 	-pthread \
-	-Wall \
-	-Wextra \
 	-Wno-unused-parameter \
 	-m64 \
-	-Wall \
-	-Wextra \
-	-Wno-unused-parameter \
-	-fno-exceptions \
-	-fno-rtti \
 	-g \
 	-O0
 
@@ -32,39 +28,36 @@ CFLAGS_C_Debug :=
 # Flags passed to only C++ files.
 CFLAGS_CC_Debug := \
 	-fno-rtti \
-	-fno-exceptions
+	-fno-exceptions \
+	-std=gnu++0x
 
 INCS_Debug := \
-	-I/home/tolylya/.node-gyp/0.12.5/src \
-	-I/home/tolylya/.node-gyp/0.12.5/deps/uv/include \
-	-I/home/tolylya/.node-gyp/0.12.5/deps/v8/include \
+	-I/home/nikita/.node-gyp/4.4.7/include/node \
+	-I/home/nikita/.node-gyp/4.4.7/src \
+	-I/home/nikita/.node-gyp/4.4.7/deps/uv/include \
+	-I/home/nikita/.node-gyp/4.4.7/deps/v8/include \
 	-I$(srcdir)/node_modules/nan \
+	-I$(srcdir)/deps/libiconv/srclib \
 	-I$(srcdir)/support
 
 DEFS_Release := \
 	'-DNODE_GYP_MODULE_NAME=iconv' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
+	'-DICONV_CONST=const' \
+	'-DENABLE_EXTRA=1' \
+	'-DHAVE_WORKING_O_NOFOLLOW=1' \
 	'-DBUILDING_NODE_EXTENSION'
 
 # Flags passed to all source files.
 CFLAGS_Release := \
 	-fPIC \
 	-pthread \
-	-Wall \
-	-Wextra \
 	-Wno-unused-parameter \
 	-m64 \
-	-Wall \
-	-Wextra \
-	-Wno-unused-parameter \
-	-fno-exceptions \
-	-fno-rtti \
 	-O3 \
 	-ffunction-sections \
 	-fdata-sections \
-	-fno-tree-vrp \
-	-fno-tree-sink \
 	-fno-omit-frame-pointer
 
 # Flags passed to only C files.
@@ -73,23 +66,24 @@ CFLAGS_C_Release :=
 # Flags passed to only C++ files.
 CFLAGS_CC_Release := \
 	-fno-rtti \
-	-fno-exceptions
+	-fno-exceptions \
+	-std=gnu++0x
 
 INCS_Release := \
-	-I/home/tolylya/.node-gyp/0.12.5/src \
-	-I/home/tolylya/.node-gyp/0.12.5/deps/uv/include \
-	-I/home/tolylya/.node-gyp/0.12.5/deps/v8/include \
+	-I/home/nikita/.node-gyp/4.4.7/include/node \
+	-I/home/nikita/.node-gyp/4.4.7/src \
+	-I/home/nikita/.node-gyp/4.4.7/deps/uv/include \
+	-I/home/nikita/.node-gyp/4.4.7/deps/v8/include \
 	-I$(srcdir)/node_modules/nan \
+	-I$(srcdir)/deps/libiconv/srclib \
 	-I$(srcdir)/support
 
 OBJS := \
-	$(obj).target/$(TARGET)/src/binding.o
+	$(obj).target/$(TARGET)/src/binding.o \
+	$(obj).target/$(TARGET)/deps/libiconv/lib/iconv.o
 
 # Add to the list of files we specially track dependencies for.
 all_deps += $(OBJS)
-
-# Make sure our dependencies are built before any of us.
-$(OBJS): | $(builddir)/iconv.a $(obj).target/iconv.a
 
 # CFLAGS et al overrides must be target-local.
 # See "Target-specific Variable Values" in the GNU Make manual.
@@ -102,13 +96,22 @@ $(OBJS): GYP_CXXFLAGS := $(DEFS_$(BUILDTYPE)) $(INCS_$(BUILDTYPE))  $(CFLAGS_$(B
 $(obj).$(TOOLSET)/$(TARGET)/%.o: $(srcdir)/%.cc FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
 
+$(obj).$(TOOLSET)/$(TARGET)/%.o: $(srcdir)/%.c FORCE_DO_CMD
+	@$(call do_cmd,cc,1)
+
 # Try building from generated source, too.
 
 $(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj).$(TOOLSET)/%.cc FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
 
+$(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj).$(TOOLSET)/%.c FORCE_DO_CMD
+	@$(call do_cmd,cc,1)
+
 $(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj)/%.cc FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
+
+$(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj)/%.c FORCE_DO_CMD
+	@$(call do_cmd,cc,1)
 
 # End of this set of suffix rules
 ### Rules for final target.
@@ -127,7 +130,7 @@ LIBS :=
 $(obj).target/iconv.node: GYP_LDFLAGS := $(LDFLAGS_$(BUILDTYPE))
 $(obj).target/iconv.node: LIBS := $(LIBS)
 $(obj).target/iconv.node: TOOLSET := $(TOOLSET)
-$(obj).target/iconv.node: $(OBJS) $(obj).target/iconv.a FORCE_DO_CMD
+$(obj).target/iconv.node: $(OBJS) FORCE_DO_CMD
 	$(call do_cmd,solink_module)
 
 all_deps += $(obj).target/iconv.node
