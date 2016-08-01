@@ -32,10 +32,10 @@ CFLAGS_CC_Debug := \
 	-std=gnu++0x
 
 INCS_Debug := \
-	-I/home/nikita/.node-gyp/4.4.7/include/node \
-	-I/home/nikita/.node-gyp/4.4.7/src \
-	-I/home/nikita/.node-gyp/4.4.7/deps/uv/include \
-	-I/home/nikita/.node-gyp/4.4.7/deps/v8/include \
+	-I/home/andrey/projects/aCRM22/node_modules/iconv/.node-gyp/4.4.7/include/node \
+	-I/home/andrey/projects/aCRM22/node_modules/iconv/.node-gyp/4.4.7/src \
+	-I/home/andrey/projects/aCRM22/node_modules/iconv/.node-gyp/4.4.7/deps/uv/include \
+	-I/home/andrey/projects/aCRM22/node_modules/iconv/.node-gyp/4.4.7/deps/v8/include \
 	-I$(srcdir)/node_modules/nan \
 	-I$(srcdir)/deps/libiconv/srclib \
 	-I$(srcdir)/support
@@ -70,10 +70,10 @@ CFLAGS_CC_Release := \
 	-std=gnu++0x
 
 INCS_Release := \
-	-I/home/nikita/.node-gyp/4.4.7/include/node \
-	-I/home/nikita/.node-gyp/4.4.7/src \
-	-I/home/nikita/.node-gyp/4.4.7/deps/uv/include \
-	-I/home/nikita/.node-gyp/4.4.7/deps/v8/include \
+	-I/home/andrey/projects/aCRM22/node_modules/iconv/.node-gyp/4.4.7/include/node \
+	-I/home/andrey/projects/aCRM22/node_modules/iconv/.node-gyp/4.4.7/src \
+	-I/home/andrey/projects/aCRM22/node_modules/iconv/.node-gyp/4.4.7/deps/uv/include \
+	-I/home/andrey/projects/aCRM22/node_modules/iconv/.node-gyp/4.4.7/deps/v8/include \
 	-I$(srcdir)/node_modules/nan \
 	-I$(srcdir)/deps/libiconv/srclib \
 	-I$(srcdir)/support

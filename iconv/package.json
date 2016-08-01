@@ -55,5 +55,6 @@
     "tmp": "tmp/iconv-2.2.1.tgz_1466067699747_0.7849630943965167"
   },
   "directories": {},
-  "_resolved": "https://registry.npmjs.org/iconv/-/iconv-2.2.1.tgz"
+  "_resolved": "https://registry.npmjs.org/iconv/-/iconv-2.2.1.tgz",
+  "readme": "ERROR: No README data found!"
 }
